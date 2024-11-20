@@ -1,7 +1,9 @@
 <?php
 include('header.php');
+include('utils.php');
 
-$searchQuery = $_GET['q'];
+// $searchQuery = $_GET['q']; <-- Antes
+$searchQuery = sanitizeInput($_GET['q']);
 ?>
 
 <div class="container my-5">

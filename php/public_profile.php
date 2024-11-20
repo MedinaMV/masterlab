@@ -8,6 +8,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
 
 include('header.php');
 include('db.php');
+include('utils.php');
 
 $db = db_connect();
 $username = $_GET['username'];
@@ -28,10 +29,10 @@ $user = $query->fetch_assoc();
       <img src="imgs/users/<?php echo $user['image']; ?>" alt="Foto de perfil" class="img-fluid rounded">
     </div>
     <div class="col-md-8">
-      <h2>Perfil público de <?php echo $user['name']; ?></h2>
+      <h2>Perfil público de <?php echo sanitizeInput($user['name']); ?></h2>
       <ul class="list-unstyled">
-        <li><strong>Nombre de usuario:</strong> <?php echo $user['username']; ?></li>
-        <li><strong>Descripción:</strong> <?php echo $user['description']; ?></li>
+        <li><strong>Nombre de usuario:</strong> <?php echo sanitizeInput($user['username']); ?></li>
+        <li><strong>Descripción:</strong> <?php echo sanitizeInput($user['description']); ?></li>
       </ul>
     </div>
   </div>

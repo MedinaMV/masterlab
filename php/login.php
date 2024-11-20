@@ -6,12 +6,13 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
   exit;
 }
 
+include('utils.php');
 include("db.php");
 include("serde.php");
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  $username = trim($_POST['username']);
-  $password = trim($_POST['password']);
+  $username = sanitizeInput($_POST['username']);
+  $password = sanitizeInput($_POST['password']);
 
   $conn = db_connect();
   $sql = "SELECT id, pass, is_admin, weather FROM users WHERE username='$username'";

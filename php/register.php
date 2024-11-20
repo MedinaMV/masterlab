@@ -1,5 +1,6 @@
 <?php
 include('db.php');
+include('utils.php');
 
 function generateApiKey()
 {
@@ -9,12 +10,12 @@ function generateApiKey()
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $db = db_connect();
 
-  $name = $_POST['name'];
-  $username = $_POST['username'];
-  $email = $_POST['email'];
-  $password = md5($_POST['password']);
-  $address = $_POST['address'];
-  $description = $_POST['description'];
+  $name = sanitizeInput($_POST['name']);
+  $username = sanitizeInput($_POST['username']);
+  $email = sanitizeInput($_POST['email']);
+  $password = md5(sanitizeInput($_POST['password']));
+  $address = sanitizeInput($_POST['address']);
+  $description = sanitizeInput($_POST['description']);
   $apiKey = generateApiKey();
 
   $checkQuery = $db->query("SELECT * FROM users WHERE email = '$email' OR username = '$username'");
@@ -28,7 +29,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $db->query("INSERT INTO users (name, username, email, pass, address, description, image, apikey) VALUES ('$name', '$username', '$email', '$password', '$address', '$description', '$photoName', '$apiKey')");
 
-    header('Location: register.php?message=success');
     exit;
   }
 }

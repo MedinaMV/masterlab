@@ -55,7 +55,7 @@ include('db.php'); ?>
               </div>';
 
       echo '<div class="mt-3">
-              <button onclick="window.location.href=\'redirect.php?url=index.php\'" class="btn btn-secondary">Volver</button>
+              <button onclick="window.location.href=\'index.php\'" class="btn btn-secondary">Volver</button>
             </div>';
     } else {
       echo '<p>Coche no encontrado.</p>';
